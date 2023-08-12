@@ -44,7 +44,11 @@ const $_: any = new Proxy(
         if (props.style) {
           Object.assign(style, props.style);
         }
-        return createElement(prop, { ...finalProps, style, ref });
+        return createElement(prop, {
+          ...finalProps,
+          style,
+          ref,
+        });
       });
     },
   }

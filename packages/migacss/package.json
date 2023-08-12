@@ -1,12 +1,17 @@
 {
   "name": "migacss",
-  "version": "0.0.0",
-  "main": "./index.tsx",
-  "types": "./index.tsx",
+  "version": "0.0.2",
+  "files": [
+    "dist"
+  ],
+  "module": "./dist/index.mjs",
+  "main": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "license": "MIT",
   "scripts": {
     "lint": "eslint \"**/*.ts*\"",
-    "generate:component": "turbo gen react-component"
+    "build": "tsup ./index.ts --format esm --dts",
+    "dev": "npm run build -- --watch"
   },
   "devDependencies": {
     "@types/react": "^18.2.0",
@@ -16,5 +21,11 @@
     "react": "^17.0.2",
     "tsconfig": "*",
     "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "tsup": "^7.2.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

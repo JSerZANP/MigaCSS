@@ -4,7 +4,8 @@
     "build": "turbo run build",
     "dev": "turbo run dev",
     "lint": "turbo run lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "publish-packages": "changeset version && changeset publish"
   },
   "devDependencies": {
     "@turbo/gen": "^1.9.7",
@@ -13,10 +14,13 @@
     "prettier": "^2.5.1",
     "turbo": "latest"
   },
-  "name": "migaCSS",
+  "name": "miga",
   "packageManager": "npm@9.8.1",
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "@changesets/cli": "^2.26.2"
+  }
 }
