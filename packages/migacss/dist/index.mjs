@@ -2050,6 +2050,7 @@ var require_react = __commonJS({
 // $.ts
 var import_react = __toESM(require_react());
 var import_react2 = __toESM(require_react());
+var componentStore = /* @__PURE__ */ new Map();
 var $_ = new Proxy(
   {},
   {
@@ -2057,24 +2058,31 @@ var $_ = new Proxy(
       if (typeof prop !== "string") {
         throw new Error("only intrinsic html tag is allowed in migaCSS");
       }
-      return (0, import_react.forwardRef)(function $2(props, ref) {
-        const style = {};
-        const finalProps = {};
-        Object.entries(props).forEach(([key, value]) => {
-          if (key.startsWith("$")) {
-            style[key.slice(1)] = value;
-          } else {
-            finalProps[key] = value;
+      if (componentStore.has(prop)) {
+        return componentStore.get(prop);
+      }
+      const component = (0, import_react.forwardRef)(
+        function $2(props, ref) {
+          const style = {};
+          const finalProps = {};
+          Object.entries(props).forEach(([key, value]) => {
+            if (key.startsWith("$")) {
+              style[key.slice(1)] = value;
+            } else {
+              finalProps[key] = value;
+            }
+          });
+          if (props.style) {
+            Object.assign(style, props.style);
           }
-        });
-        if (props.style) {
-          Object.assign(style, props.style);
+          return (0, import_react2.createElement)(prop, __spreadProps(__spreadValues({}, finalProps), {
+            style,
+            ref
+          }));
         }
-        return (0, import_react2.createElement)(prop, __spreadProps(__spreadValues({}, finalProps), {
-          style,
-          ref
-        }));
-      });
+      );
+      componentStore.set(prop, component);
+      return component;
     }
   }
 );

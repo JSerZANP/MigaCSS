@@ -14,6 +14,8 @@ type Miga = {
   >;
 };
 
+let componentStore = new Map<string, any>();
+
 const $_: any = new Proxy(
   {},
   {
@@ -26,33 +28,39 @@ const $_: any = new Proxy(
       if (typeof prop !== "string") {
         throw new Error("only intrinsic html tag is allowed in migaCSS");
       }
-      return forwardRef<ComponentRef<T>, ComponentProps<Miga[T]>>(function $(
-        props,
-        ref
-      ) {
-        // 1. `style` is allowed
-        // 2. `s-` prefixed are styles
-        const style: React.CSSProperties = {};
-        const finalProps: any = {};
-        // @ts-ignore
-        Object.entries(props).forEach(([key, value]) => {
-          if (key.startsWith("$")) {
-            // @ts-ignore
-            style[key.slice(1)] = value;
-          } else {
-            finalProps[key] = value;
-          }
-        });
 
-        if (props.style) {
-          Object.assign(style, props.style);
+      if (componentStore.has(prop)) {
+        return componentStore.get(prop);
+      }
+
+      const component = forwardRef<ComponentRef<T>, ComponentProps<Miga[T]>>(
+        function $(props, ref) {
+          // 1. `style` is allowed
+          // 2. `s-` prefixed are styles
+          const style: React.CSSProperties = {};
+          const finalProps: any = {};
+          // @ts-ignore
+          Object.entries(props).forEach(([key, value]) => {
+            if (key.startsWith("$")) {
+              // @ts-ignore
+              style[key.slice(1)] = value;
+            } else {
+              finalProps[key] = value;
+            }
+          });
+
+          if (props.style) {
+            Object.assign(style, props.style);
+          }
+          return createElement(prop, {
+            ...finalProps,
+            style,
+            ref,
+          });
         }
-        return createElement(prop, {
-          ...finalProps,
-          style,
-          ref,
-        });
-      });
+      );
+      componentStore.set(prop, component);
+      return component;
     },
   }
 );
