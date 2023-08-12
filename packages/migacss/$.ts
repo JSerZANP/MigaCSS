@@ -1,4 +1,4 @@
-import React, { forwardRef } from "react";
+import React, { ComponentRef, forwardRef } from "react";
 import { createElement, ComponentProps } from "react";
 
 type PrefixedCSSProperties = {
@@ -9,7 +9,8 @@ type PrefixedCSSProperties = {
 
 type Miga = {
   [K in keyof React.ReactHTML]: React.FunctionComponent<
-    React.HTMLProps<K> & PrefixedCSSProperties & { children: React.ReactNode }
+    React.HTMLProps<ComponentRef<K>> &
+      PrefixedCSSProperties & { children: React.ReactNode }
   >;
 };
 
@@ -25,8 +26,10 @@ const $_: any = new Proxy(
       if (typeof prop !== "string") {
         throw new Error("only intrinsic html tag is allowed in migaCSS");
       }
-
-      return forwardRef<T, ComponentProps<Miga[T]>>(function $(props, ref) {
+      return forwardRef<ComponentRef<T>, ComponentProps<Miga[T]>>(function $(
+        props,
+        ref
+      ) {
         // 1. `style` is allowed
         // 2. `s-` prefixed are styles
         const style: React.CSSProperties = {};
