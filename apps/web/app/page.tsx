@@ -17,29 +17,35 @@ export default function Page() {
         </$.h1>
       </Inner>
       <Inner>
+        <i>still WIP.</i>
         <$.h2 $fontSize="20px" $fontWeight={"500"} $margin={"1em 0"}>
           Why?
         </$.h2>
         <$.p $lineHeight="1.5">
           I really want to spend less effort in styling. And don&lsquo;t want to
-          spend too much time understanding the unncessary abstractions. TODO:
-          explain why I think inline is just great.
+          spend too much time understanding the unncessary abstractions.
         </$.p>
-        <$.p $lineHeight="1.5">TODO: explain why inline is great.</$.p>
       </Inner>
       <Inner>
         <$.h2 $fontSize="20px" $fontWeight={"500"} $margin={"1em 0"}>
           How?
         </$.h2>
         <$.p $lineHeight="1.5">
-          migaCSS provides a bunch of tools that you can easily pick up and use.
+          migaCSS provides a bunch of tools that you can easily pick up and use,
+          for progressive adoption.
         </$.p>
-        <$.p $lineHeight="1.5">TODO: too list</$.p>
       </Inner>
       <Inner>
         <$.h2 $fontSize="20px" $fontWeight={"500"} $margin={"1em 0"}>
-          Try it out!
+          $
         </$.h2>
+        <$.p $lineHeight="1.5">
+          <b>$</b> might be the easiest way to{" "}
+          <a href="https://chakra-ui.com/docs/styled-system/style-props">
+            Style Props
+          </a>
+          , give it a try!
+        </$.p>
         <Sandpack
           template="react"
           theme="auto"
@@ -67,18 +73,16 @@ export default function App() {
         />
       </Inner>
       <Inner>
-        <$.h2 $fontSize="20px" $fontWeight={"500"} $margin={"1em 0"}>
+        <$.h3 $fontSize="16px" $fontWeight={"500"} $margin={"1em 0"}>
           Caveat
-        </$.h2>
+        </$.h3>
         <$.p>TODO: caveat.</$.p>
       </Inner>
       <Inner>
         <$.h2 $fontSize="20px" $fontWeight={"500"} $margin={"1em 0"}>
-          To Start
+          More tools
         </$.h2>
-        <$.p>
-          <code>{`import {$} from 'migacss'`}</code>
-        </$.p>
+        <$.p>on their way.</$.p>
       </Inner>
     </$.div>
   );
