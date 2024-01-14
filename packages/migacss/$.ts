@@ -9,7 +9,7 @@ type PrefixedCSSProperties = {
 
 type Miga = {
   [K in keyof React.ReactHTML]: React.FunctionComponent<
-    React.HTMLProps<ComponentRef<K>> &
+    React.ComponentProps<K> &
       PrefixedCSSProperties & { children?: React.ReactNode }
   >;
 };
